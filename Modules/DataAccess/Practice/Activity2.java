@@ -2,7 +2,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class Activitie2 {
+public class Activity2 {
 
     public static void main(String[] args) throws IOException {
         // Inicializamos el FileWritter y el fichero que se desea crear, en este punto se inicia el flujo.
