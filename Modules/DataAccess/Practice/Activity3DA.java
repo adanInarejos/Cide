@@ -4,7 +4,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 
-public class Activity3 {
+public class Activity3DA {
 
     public static void main(String[] args) throws IOException {
         // Inicializamos el FileReader y el fichero que se desea crear, en este punto se inicia el flujo.

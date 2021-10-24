@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 
-public class Activity6 {
+public class Activity4DA {
 
     // Inicializamos el archivo.
     static File file = new File("Test.txt");
@@ -40,7 +40,7 @@ public class Activity6 {
     }
 
     public static void main(String[] args) throws IOException {
-        Activity6 A = new Activity6();
+        Activity4DA A = new Activity4DA();
         Scanner sc = new Scanner(System.in);
         // Se pide por teclado la ruta y el texto y se inical el metodo de escritura y lectura.
         System.out.println("Introduzca la ruta en la que desea crear el archivo");

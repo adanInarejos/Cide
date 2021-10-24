@@ -1,7 +1,7 @@
 import javax.annotation.processing.ProcessingEnvironment;
 import java.io.IOException;
 
-public class Activity5 {
+public class Activity2SP {
 
 
     public static void main(String[] args) throws IOException, InterruptedException {

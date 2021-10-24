@@ -1,0 +1,8 @@
+{
+    "java.project.sourcePaths": [
+        "Modules/ServicesProcesses/Programs/Mayusculas",
+        "Modules/ServicesProcesses/Practice",
+        "Modules/DataAccess/Practice",
+        "Modules/DataAccess/Programs/DOM2"
+    ]
+}

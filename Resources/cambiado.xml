@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<videojuegos>
+    
+    <videojuego creado_en="EEUU">
+        <Titulo>Minecraft</Titulo>
+        <Creador>Notch</Creador>
+        <Sinopsis>Es un juego de cubos</Sinopsis>
+        <Plataforma>PC</Plataforma>
+    </videojuego>
+</videojuegos>

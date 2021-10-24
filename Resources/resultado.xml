@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<videojuegos>
+    
+    <videojuego creado_en="San Diego California">
+        <Titulo>MAINCRAH</Titulo>
+        <Creador>Manolo</Creador>
+        <Sinopsis>Juego de Cubiculos</Sinopsis>
+        <Plataforma>PC</Plataforma>
+    </videojuego>
+    <videojuego creado_en="California">
+        <Titulo>Bioshock</Titulo>
+        <Creador>Rockstar North</Creador>
+        <Sinopsis>Nunca va a salir</Sinopsis>
+        <Plataforma>PC-PS5-PROYCTX</Plataforma>
+    </videojuego>
+    <videojuego creado_en="California">
+        <Titulo>Shakira</Titulo>
+        <Creador>Rockstar North</Creador>
+        <Sinopsis>Nunca va a salir</Sinopsis>
+        <Plataforma>PC-PS5-PROYCTX</Plataforma>
+    </videojuego>
+    <videojuego creado_en="California">
+        <Titulo>Star Wars III</Titulo>
+        <Creador>Rockstar North</Creador>
+        <Sinopsis>Nunca va a salir</Sinopsis>
+        <Plataforma>PC-PS5-PROYCTX</Plataforma>
+    </videojuego>
+</videojuegos>
