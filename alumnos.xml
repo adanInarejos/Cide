@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<registre_alumnes>
+            
+    
+    <alumne codi_alumne="aaa">
+                        
+        
+        <nom_alumne>Adan</nom_alumne>
+                        
+        
+        <curs>aaa</curs>
+                        
+        
+        <any_naixement>aaa</any_naixement>
+                        
+        
+        <colegi>aaa</colegi>
+                    
+    
+    </alumne>
+        
+    
+    <alumne codi_alumne="AAAA">
+                
+        <nom_alumne>Ismael</nom_alumne>
+                
+        <curs>aaa</curs>
+                
+        <any_naixement>aaa</any_naixement>
+                
+        <colegi>aaa</colegi>
+            
+    </alumne>
+    
+    <alumne codi_alumne="">
+        <nom_alumne/>
+        <curs/>
+        <any_naixement/>
+        <colegi/>
+    </alumne>
+</registre_alumnes>
