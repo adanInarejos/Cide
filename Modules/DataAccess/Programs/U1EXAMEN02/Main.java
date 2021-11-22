@@ -41,13 +41,13 @@ public class Main {
                 menu();
                 break;
             case 4:
-                //Codigo
+                xmlManager.modificarAlumno("1", "nom_alumne", "patata");
                 break;
             case 5:
                 //Codigo
                 break;
             case 6:
-                //Codigo
+                xmlManager.eliminarAlumno("1");
                 break;
             case 0:
                 return;

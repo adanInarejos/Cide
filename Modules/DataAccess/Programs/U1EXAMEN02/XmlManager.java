@@ -51,8 +51,8 @@ public class XmlManager {
     public void crearDocumento() throws TransformerException{
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
-        transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        //transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+        //transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         DOMSource source = new DOMSource(this.doc);
         StreamResult consoleResult = new StreamResult("alumnos.xml");
         transformer.transform(source, consoleResult);
@@ -64,8 +64,8 @@ public class XmlManager {
     public void añadirRegistros(Document document) throws TransformerException{
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
-        transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        //transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+        //transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         
         DOMSource source = new DOMSource(document);
         StreamResult consoleResult = new StreamResult("alumnos.xml");
@@ -108,7 +108,6 @@ public class XmlManager {
 
     public void mostrarDocumento() throws SAXException, IOException, XPathExpressionException{
         Document docParse = docBuilder.parse("alumnos.xml");
-
         NodeList nodos = (NodeList) xpath.evaluate("//alumne", docParse, XPathConstants.NODESET);
 
         for (int i = 0; i < nodos.getLength(); i++) {
@@ -122,4 +121,35 @@ public class XmlManager {
         }
     }
 
+    public void modificarAlumno(String id, String campo, String valor) throws SAXException, IOException, TransformerException{
+        Document docParse = docBuilder.parse("alumnos.xml");
+        Node alumnes = docParse.getFirstChild();
+
+        NodeList nodes = alumnes.getChildNodes();
+        for (int i = 0; i < nodes.getLength(); i++) {
+            if (nodes.item(i).getAttributes().getNamedItem("codi_alumne").getTextContent().equals(id)){
+                NodeList campos = nodes.item(i).getChildNodes();
+                for (int j = 0; j < campos.getLength(); j++) {;
+                    System.out.println(campos.item(j).getTextContent());
+                    if (campos.item(j).getNodeName().equals(campo)){
+                        campos.item(j).setTextContent(valor);
+                    }
+                    
+                }
+            }
+        }
+        this.añadirRegistros(docParse);
+    }
+
+    public void eliminarAlumno(String id) throws SAXException, IOException, TransformerException{
+        Document docParse = docBuilder.parse("alumnos.xml");
+        Node alumnes = docParse.getFirstChild();
+        NodeList nodes = alumnes.getChildNodes();
+        for (int i = 0; i < nodes.getLength(); i++) {
+            if (nodes.item(i).getAttributes().getNamedItem("codi_alumne").getTextContent().equals(id)){
+                alumnes.removeChild(nodes.item(i));
+            }
+        }
+        this.añadirRegistros(docParse);
+    }
 }
