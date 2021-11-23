@@ -101,6 +101,7 @@ public class XmlManager {
         alumne.appendChild(año);
         alumne.appendChild(colegio);
 
+        System.out.println("--------------------------\nAlumno creado correctamente\n--------------------------");
         // Se añade el nuevo registro al archivo XML
         this.añadirRegistros(docParse);
         
@@ -125,19 +126,26 @@ public class XmlManager {
         Document docParse = docBuilder.parse("alumnos.xml");
         Node alumnes = docParse.getFirstChild();
 
+        Boolean comprobador = true;
+
         NodeList nodes = alumnes.getChildNodes();
         for (int i = 0; i < nodes.getLength(); i++) {
             if (nodes.item(i).getAttributes().getNamedItem("codi_alumne").getTextContent().equals(id)){
                 NodeList campos = nodes.item(i).getChildNodes();
                 for (int j = 0; j < campos.getLength(); j++) {;
-                    System.out.println(campos.item(j).getTextContent());
                     if (campos.item(j).getNodeName().equals(campo)){
                         campos.item(j).setTextContent(valor);
+                        System.out.println("--------------------------\nAlumno modificado correctamente\n--------------------------");
+                        comprobador = false;
                     }
                     
                 }
             }
         }
+        if (comprobador){
+            System.out.println("--------------------------\nNO SE ENCONTRARON REGISTROS\n--------------------------");
+        }
+
         this.añadirRegistros(docParse);
     }
 
@@ -152,4 +160,28 @@ public class XmlManager {
         }
         this.añadirRegistros(docParse);
     }
+
+    public void consultasXPath(String query) throws XPathExpressionException, SAXException, IOException{
+
+        xpath = XPathFactory.newInstance().newXPath();
+        Document docParse = docBuilder.parse("alumnos.xml");
+        NodeList nodos = (NodeList) xpath.evaluate(query, docParse, XPathConstants.NODESET);
+
+        if (nodos.getLength()==0){
+            System.out.println("--------------------------\nNO SE ENCONTRARON REGISTROS\n--------------------------");
+        }
+
+    
+        for (int i = 0; i < nodos.getLength(); i++) {
+            System.out.println("----------------------------");
+            //System.out.println("\n" + nodos.item(i).getNodeName() + i + "\n");
+            NodeList atributos = nodos.item(i).getChildNodes();
+            for (int j = 0; j < nodos.item(i).getChildNodes().getLength(); j++) {
+                System.out.println(atributos.item(j).getNodeName() + ": " + atributos.item(j).getTextContent());
+            }
+        System.out.println("----------------------------");
+        }
+    }
+
 }
+

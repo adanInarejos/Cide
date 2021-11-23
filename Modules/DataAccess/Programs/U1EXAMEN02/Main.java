@@ -37,20 +37,26 @@ public class Main {
                 menu();
                 break;
             case 3:
-                xmlManager.mostrarDocumento();
+                xmlManager.consultasXPath("//alumne");
                 menu();
                 break;
             case 4:
-                xmlManager.modificarAlumno("1", "nom_alumne", "patata");
+                menuModificarAlumno();
+                menu();
                 break;
             case 5:
-                //Codigo
+                menuConsultes();
+                menu();
                 break;
             case 6:
-                xmlManager.eliminarAlumno("1");
+                Scanner sc4 = new Scanner(System.in);
+                System.out.println("Introduzca el codigo del alumno que desea eliminar");
+                String id = sc4.nextLine();
+                xmlManager.eliminarAlumno(id);
+                menu();
                 break;
             case 0:
-                return;
+                break;
             default:
                 System.out.println("-----------\nError - Elija una opcion valida\n-----------");   
                 menu();
@@ -78,6 +84,59 @@ public class Main {
 
         // Con los datos introducidos por el usuario se lanza el metodo para registrarlo en el XML
         xmlManager.registarAlumno(codigo, nombre, curso, año, colegio);
+    }
+
+    public void menuModificarAlumno() throws SAXException, IOException, TransformerException{
+
+        Scanner sc3 = new Scanner(System.in);
+
+        System.out.println("Introduzca el codigo del alumno que desea modificar");
+        String id = sc3.nextLine();
+
+        System.out.println("Introduzca el campo del alumno que desea modificar");
+        String campo = sc3.nextLine();
+
+        System.out.println("Introduzca el valor que desa introducir");
+        String valor = sc3.nextLine();
+
+        xmlManager.modificarAlumno(id, campo ,valor);
+    }
+
+    public void menuConsultes() throws XPathExpressionException, SAXException, IOException, TransformerException, ParserConfigurationException{
+
+        Scanner sc5 = new Scanner(System.in);
+
+
+        System.out.println("Elige opcion:\n1 - Consultar todos los nombres de los alumnos\n2 - Consultar los alumnos que vayan al colegio Cide\n3 - Consultar el nombre de almuno con codigo 3\n4 - Consultar los alumnos nacidos antes de 1990\n0 - Salir\n--------------------------");
+        int opcion = sc.nextInt();
+        switch (opcion){
+            case 1:
+                xmlManager.consultasXPath("//nom_alumne");
+                menuConsultes();
+                break;
+            case 2:
+                xmlManager.consultasXPath("//alumne[colegi='cide']");
+                menuConsultes();
+                break;
+            case 3:
+                xmlManager.consultasXPath("//alumne[@codi_alumne='3']");
+                menuConsultes();
+                break;
+            case 4:
+                xmlManager.consultasXPath("//alumne[any_naixement<1990]");
+                menuConsultes();
+                break;
+            case 0:
+                menu();
+                break;
+            default:
+                System.out.println("-----------\nError - Elija una opcion valida\n-----------");  
+                menuConsultes();
+                break;
+        }
+
+
+
     }
 
     public static void main(String[] args) throws ParserConfigurationException, TransformerException, SAXException, IOException, XPathExpressionException {
