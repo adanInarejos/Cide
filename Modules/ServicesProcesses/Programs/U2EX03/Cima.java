@@ -10,10 +10,15 @@ public class Cima {
         escaladores = new PriorityQueue<Integer>();
     }
 
-    public void anadirEscaladores(Integer numeroEscaladores){
-        semaphore.acquire();
-        escaladores.add(numeroEscaladores);
-        semaphore.release();
+    public void anadirEscalador(Integer idEscalador) throws InterruptedException{
+        try {
+            semaphore.acquire();
+            escaladores.add(idEscalador);
+            semaphore.release();   
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
+    
     }
 
     public boolean hayEscaladoresPendientes(){
@@ -24,15 +29,22 @@ public class Cima {
         }
     }
 
-    public int terminarEscalador(){
-        int coche=0;
+    public int terminarEscalador(Helicoptero helicoptero) throws Exception{
+        Integer escalador=0;
         if (hayEscaladoresPendientes()){
             semaphore.acquire();
-            coche = escaladores.poll();
+            for (int i = 0; i < helicoptero.getCapacidad(); i++) {
+                escalador = escaladores.poll(); 
+                if (escalador == null){
+                    throw new Exception("No quedan escaladores en la cima");
+                }  
+                helicoptero.SumarEscalador();
+            }
             semaphore.release();
         }
-        return coche;
+        return escalador;
     }
+    
 
 
 }

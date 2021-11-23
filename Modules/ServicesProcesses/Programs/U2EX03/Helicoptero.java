@@ -4,6 +4,7 @@ public class Helicoptero extends Thread {
     String nombre;
     int capacidad;
     Cima cima;
+    int recogidos;
 
     public Helicoptero(String nombre, Cima cima, int capacidad){
         this.cima=cima;
@@ -18,14 +19,23 @@ public class Helicoptero extends Thread {
         // Cambiar
         while (cima.hayEscaladoresPendientes()){
             try {
-                espera = (int) (Math.random() * 20 + 10);
-                numEscaladores = cima.terminarEscalador();
+                espera = (int) (Math.random() * 2000 + 1000);
+                numEscaladores = cima.terminarEscalador(this);
                 sleep(espera);
-                System.out.println("El helicoptero " + nombre + "he extraido a " + capacidad + " escaladores en " + espera + " segundos");
+                System.out.println("El helicoptero " + nombre + " ha extraido a " + recogidos + " escaladores en " + espera + " segundos");
+                recogidos = 0;
             } catch (Exception e) {
-                //TODO: handle exception
+                System.out.println("El helicoptero " + nombre + " ha extraido a " + recogidos + " debido a que la cima ya esta vacia");
             }
         }
         System.err.println("Helicoptero " + nombre + " ha finalizado");
+    }
+
+    public void SumarEscalador(){
+        recogidos++;
+    }
+
+    public int getCapacidad() {
+        return capacidad;
     }
 }
