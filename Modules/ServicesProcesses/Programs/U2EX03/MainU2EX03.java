@@ -16,9 +16,9 @@ public class MainU2EX03 {
         }
 
         // Se crean los elicopteros y se establece la cantidad de personas que pueden llevar
-        Helicoptero helicoptero1 = new Helicoptero("helicoptro1", cima, 1);
-        Helicoptero helicoptero2 = new Helicoptero("helicoptro2", cima, 3);
-        Helicoptero helicoptero3 = new Helicoptero("helicoptro3", cima, 5);
+        Helicoptero helicoptero1 = new Helicoptero("helicoptero1", cima, 1);
+        Helicoptero helicoptero2 = new Helicoptero("helicoptero2", cima, 3);
+        Helicoptero helicoptero3 = new Helicoptero("helicoptero3", cima, 5);
 
         // Se inician los helicopteros.
         helicoptero1.start();
@@ -35,7 +35,7 @@ public class MainU2EX03 {
         }
 
         // Mensaje de que el programa a acabado.
-        System.out.println("Escavadores rescatadaos");
+        System.out.println("Escaladores rescatadaos");
 
 
         

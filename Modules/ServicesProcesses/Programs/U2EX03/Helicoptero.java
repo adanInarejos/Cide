@@ -16,19 +16,13 @@ public class Helicoptero extends Thread {
     
     // Metodo de ejecucion
     public void run(){
-        // espera sera el tiempo que se tarda en recoger a los escaladores
-        int espera;
         int numEscaladores;
         while (cima.hayEscaladoresPendientes()){
             try {
-                // La espera sera un numero random entre 10 y 20 segundos
-                espera = (int) (Math.random() * 2000 + 1000);
                 // Se recogen a los escaladores
                 numEscaladores = cima.terminarEscalador(this);
-                // El hilo se ponde a dormir
-                sleep(espera);
                 // Se muestra un mensaje indicando que el helicoptero a recogido a los escaladores
-                System.out.println("El helicoptero " + nombre + " ha extraido a " + recogidos + " escaladores en " + espera + " segundos");
+                System.out.println("El helicoptero " + nombre + " ha extraido a " + recogidos + " escaladores");
                 recogidos = 0;
             } catch (Exception e) {
                 // Si la cima esta vacia se muestra un aviso por pantalla
@@ -36,7 +30,7 @@ public class Helicoptero extends Thread {
             }
         }
         // Mensaje para indicar que el hilo a finalizado
-        System.err.println("Helicoptero " + nombre + " ha finalizado");
+        System.out.println("Helicoptero " + nombre + " ha finalizado");
     }
 
     // Metodo para contabilizar los escaladores recogidos en cada tanda

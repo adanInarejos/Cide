@@ -1,30 +1,24 @@
 import java.util.PriorityQueue;
-import java.util.concurrent.Semaphore;
+public class Cima {
 
-public class Cima { 
-    // Atributos: escaladores sera la lista de escaladores que hay en la cima
-    Semaphore semaphore;
     PriorityQueue<Integer> escaladores;
 
-    // Constructor, se inicializan el semaforo y la lista de escaladores
     public Cima(){
-        semaphore = new Semaphore(1);
+        // lista escaladores
         escaladores = new PriorityQueue<Integer>();
     }
 
-    // Metodo para anadir escaladores a la cimaS
+    // Metodo para añadir escaladores a la cima
     public void anadirEscalador(Integer idEscalador) throws InterruptedException{
         try {
-            semaphore.acquire();
-            escaladores.add(idEscalador);
-            semaphore.release();   
+            escaladores.add(idEscalador); 
         } catch (Exception e) {
             //TODO: handle exception
         }
     
     }
 
-    // Eeste metodo indica si hay aun o no escaladores por recoger
+    // Metodo para comprobar si quedan escaladores en la cima
     public boolean hayEscaladoresPendientes(){
         if (escaladores.size()>0){
             return true;
@@ -33,27 +27,23 @@ public class Cima {
         }
     }
 
-    // Metodo para recoger los escaladores
-    public int terminarEscalador(Helicoptero helicoptero) throws Exception{
+    // Este metodo recoge tantos escaladores como capacidad tiene el helicoptero que llega a la cima
+    public synchronized int terminarEscalador(Helicoptero helicoptero) throws Exception{
         Integer escalador=0;
-        // Si hay escaladores pendientes recogera el maximo de escaladores que quepan en el helicoptero
         if (hayEscaladoresPendientes()){
-            // Se adquiere el semaforo
-            semaphore.acquire();
+            // Este bucle recogera escaladores mienstras haya espacio en el helicoptero
             for (int i = 0; i < helicoptero.getCapacidad(); i++) {
-                // Se recoge un escalador de la lista
                 escalador = escaladores.poll(); 
-                // Si no quedan escaladores se lanza una excepcion
+                // Si el escalador recogido es nulo se lanza una excepcion
                 if (escalador == null){
                     throw new Exception("No quedan escaladores en la cima");
                 }  
-                // Se suma uno a los escaladores he hay en el helicptero
+                // Se suma un escalador al helicpotero
                 helicoptero.SumarEscalador();
             }
-            // Se libera el semaforo
-            semaphore.release();
+            // Se duerme al proceso entre 10 y 20 segundos para simular lo que tarda el helicpetro en realizar la recoida
+            Thread.sleep( (int) (Math.random()*20000) + 10000);
         }
-        // Se devulve el escalador
         return escalador;
     }
     
