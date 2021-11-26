@@ -51,8 +51,6 @@ public class XmlManager {
     public void crearDocumento() throws TransformerException{
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
-        //transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-        //transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         DOMSource source = new DOMSource(this.doc);
         StreamResult consoleResult = new StreamResult("alumnos.xml");
         transformer.transform(source, consoleResult);
@@ -60,13 +58,10 @@ public class XmlManager {
         System.out.println("--------------------------\nDocumento creado correctamente\n--------------------------");
     }
 
-    // Optimizar : Metodo para añadir registros al documento xml 
+    //Metodo para añadir registros al documento xml 
     public void añadirRegistros(Document document) throws TransformerException{
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
-        //transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-        //transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-        
         DOMSource source = new DOMSource(document);
         StreamResult consoleResult = new StreamResult("alumnos.xml");
         transformer.transform(source, consoleResult);
@@ -107,27 +102,15 @@ public class XmlManager {
         
     }
 
-    public void mostrarDocumento() throws SAXException, IOException, XPathExpressionException{
-        Document docParse = docBuilder.parse("alumnos.xml");
-        NodeList nodos = (NodeList) xpath.evaluate("//alumne", docParse, XPathConstants.NODESET);
 
-        for (int i = 0; i < nodos.getLength(); i++) {
-            System.out.println("----------------------------");
-            System.out.println("\n" + nodos.item(i).getNodeName() + i + "\n");
-            NodeList atributos = nodos.item(i).getChildNodes();
-            for (int j = 0; j < nodos.item(i).getChildNodes().getLength(); j++) {
-                System.out.println(atributos.item(j).getTextContent());
-            }
-        System.out.println("----------------------------");
-        }
-    }
-
+    // Este metodo modificara el valor del campo del alumno que el usaurio haya introducido
     public void modificarAlumno(String id, String campo, String valor) throws SAXException, IOException, TransformerException{
         Document docParse = docBuilder.parse("alumnos.xml");
         Node alumnes = docParse.getFirstChild();
 
         Boolean comprobador = true;
 
+        // Se crea una lista de nodos alumnos, si algun alumno coincide con la id introducida se recorre todos sus hujos y si el campo existe se modifica su valor
         NodeList nodes = alumnes.getChildNodes();
         for (int i = 0; i < nodes.getLength(); i++) {
             if (nodes.item(i).getAttributes().getNamedItem("codi_alumne").getTextContent().equals(id)){
@@ -142,39 +125,51 @@ public class XmlManager {
                 }
             }
         }
+        // Si no se encuntran registros se imprime un aviso al usuario
         if (comprobador){
             System.out.println("--------------------------\nNO SE ENCONTRARON REGISTROS\n--------------------------");
+        } else{
+            this.añadirRegistros(docParse);
         }
-
-        this.añadirRegistros(docParse);
+ 
+        
     }
 
+    // Este metdodo busca y elimina el usuario con el id introducido por el usuario.
     public void eliminarAlumno(String id) throws SAXException, IOException, TransformerException{
         Document docParse = docBuilder.parse("alumnos.xml");
         Node alumnes = docParse.getFirstChild();
+        // Se genera una lista con los alumnos del documento
         NodeList nodes = alumnes.getChildNodes();
+        // Se recorren sus atributos y si el codigo coincide se elimina a ese alumno
         for (int i = 0; i < nodes.getLength(); i++) {
             if (nodes.item(i).getAttributes().getNamedItem("codi_alumne").getTextContent().equals(id)){
                 alumnes.removeChild(nodes.item(i));
+                System.out.println("--------------------------\nAlumno eliminado correctamente\n--------------------------");
             }
         }
+        
         this.añadirRegistros(docParse);
     }
 
+
+    // Este metodo ejecutara la query xPath que se le pasa por parametro y meustra el resultado por pantalla.
     public void consultasXPath(String query) throws XPathExpressionException, SAXException, IOException{
 
         xpath = XPathFactory.newInstance().newXPath();
         Document docParse = docBuilder.parse("alumnos.xml");
+
+        // Se crea una lista de nodos con los nodos resultantes de la ejecucion de la query de XPath
         NodeList nodos = (NodeList) xpath.evaluate(query, docParse, XPathConstants.NODESET);
 
+        // Si no se encuentran nodos se lanza un mensaje al usuariox
         if (nodos.getLength()==0){
             System.out.println("--------------------------\nNO SE ENCONTRARON REGISTROS\n--------------------------");
         }
 
-    
+        // Se recorre el nodo y todos sus hijos y se muestra por pantalla
         for (int i = 0; i < nodos.getLength(); i++) {
             System.out.println("----------------------------");
-            //System.out.println("\n" + nodos.item(i).getNodeName() + i + "\n");
             NodeList atributos = nodos.item(i).getChildNodes();
             for (int j = 0; j < nodos.item(i).getChildNodes().getLength(); j++) {
                 System.out.println(atributos.item(j).getNodeName() + ": " + atributos.item(j).getTextContent());
